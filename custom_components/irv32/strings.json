@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up iRV32 Stereo",
+        "description": "Enter the Bluetooth MAC address of the iRV32V2 stereo. The stereo must be in BLE range of the Home Assistant host or a connected Bluetooth proxy.\n\nExample: {example_mac}",
+        "data": {
+          "address": "MAC address"
+        },
+        "data_description": {
+          "address": "Six pairs of hex digits separated by colons or hyphens, e.g. DE:D4:34:53:37:B5"
+        }
+      }
+    },
+    "error": {
+      "invalid_mac": "Not a valid MAC address. Use the format AA:BB:CC:DD:EE:FF."
+    },
+    "abort": {
+      "already_configured": "This iRV32 stereo is already configured."
+    }
+  }
+}

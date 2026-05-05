@@ -1,0 +1,14 @@
+{
+  "domain": "irv32",
+  "name": "iRV32 Stereo",
+  "version": "0.1.0",
+  "documentation": "https://github.com/mcrw27/irv32",
+  "issue_tracker": "https://github.com/mcrw27/irv32/issues",
+  "codeowners": ["@mcrw27"],
+  "config_flow": true,
+  "dependencies": ["bluetooth"],
+  "iot_class": "local_polling",
+  "integration_type": "device",
+  "loggers": ["custom_components.irv32"],
+  "requirements": []
+}

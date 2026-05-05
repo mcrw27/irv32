@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version from tag
+        id: version
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Tag version: ${VERSION}"
+
+      - name: Verify manifest version matches tag
+        run: |
+          MANIFEST_VERSION=$(jq -r .version custom_components/irv32/manifest.json)
+          TAG_VERSION="${{ steps.version.outputs.VERSION }}"
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::manifest.json version ($MANIFEST_VERSION) does not match tag (v$TAG_VERSION). Update custom_components/irv32/manifest.json before tagging."
+            exit 1
+          fi
+
+      - name: Zip integration
+        # HACS does not strictly require a zip asset — installing from a
+        # tagged release works either way — but a zip lets users do a
+        # quick manual install without cloning.
+        run: |
+          cd custom_components/irv32
+          zip -r "${GITHUB_WORKSPACE}/irv32.zip" .
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: irv32.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
