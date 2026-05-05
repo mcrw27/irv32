@@ -1,6 +1,5 @@
 {
   "name": "iRV32 Stereo",
   "content_in_root": false,
-  "homeassistant": "2024.10.0",
-  "render_readme": true
+  "homeassistant": "2024.10.0"
 }
