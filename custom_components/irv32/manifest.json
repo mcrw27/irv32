@@ -1,6 +1,11 @@
 {
   "domain": "irv32",
   "name": "iRV32 Stereo",
+  "bluetooth": [
+    {
+      "local_name": "iRV 32*"
+    }
+  ],
   "codeowners": ["@mcrw27"],
   "config_flow": true,
   "dependencies": ["bluetooth"],
@@ -10,5 +15,5 @@
   "issue_tracker": "https://github.com/mcrw27/irv32/issues",
   "loggers": ["custom_components.irv32"],
   "requirements": [],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
