@@ -1,7 +1,6 @@
 """Constants for the iRV32 integration."""
 from __future__ import annotations
 
-from datetime import timedelta
 from typing import Final
 
 DOMAIN: Final = "irv32"
@@ -14,9 +13,15 @@ SERVICE_UUID: Final = "0000180f-0000-1000-8000-00805f9b34fb"
 WRITE_CHAR_UUID: Final = "0000a040-0000-1000-8000-00805f9b34fb"
 HEARTBEAT_CHAR_UUID: Final = "0000a041-0000-1000-8000-00805f9b34fb"
 
-# Heartbeat poll cadence. The a041 read is purely a connection-liveness
-# probe; the device returns the same fixed bytes every time.
-HEARTBEAT_INTERVAL: Final = timedelta(seconds=30)
+# Time to keep the BLE connection open after the last button press
+# before cleanly disconnecting. Tunes the trade-off between latency and
+# load on the iRV32's flaky BLE stack: 60s means rapid MODE cycling for
+# source switching stays instant, but a button press after a minute of
+# inactivity pays a ~1-3s reconnect cost. The integration deliberately
+# does NOT keep a persistent connection: the iRV32V2 drops idle
+# connections aggressively, and our reconnect attempts cause a storm
+# that wedges the BT controller on whatever proxy is talking to it.
+IDLE_DISCONNECT_SECONDS: Final = 60
 
 # Wire format prefix and suffix for ATKEY commands.
 ATKEY_PREFIX: Final = b"ATKEY"

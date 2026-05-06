@@ -24,11 +24,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: IRV32ConfigEntry) -> boo
     address: str = entry.data[CONF_ADDRESS]
     coordinator = IRV32Coordinator(hass, entry, address)
 
-    # First refresh establishes the BLE connection. If the device isn't
-    # reachable on setup we still want the entry to load (so the user
-    # can fix things and the coordinator will reconnect on its own
-    # schedule), so we don't propagate the UpdateFailed here.
-    await coordinator.async_config_entry_first_refresh()
+    # Wire up the bluetooth advertisement / unavailable callbacks. Does
+    # NOT attempt a BLE connection — that happens lazily on the first
+    # button press. Setup succeeds even if the iRV32V2 is currently off
+    # or out of range; entities will simply show as unavailable until
+    # an advertisement is received.
+    await coordinator.async_setup()
 
     entry.runtime_data = coordinator
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
