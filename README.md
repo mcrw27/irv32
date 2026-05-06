@@ -2,6 +2,8 @@
 
 Home Assistant integration for iRV32V2 RV stereos over Bluetooth Low Energy.
 
+[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=mcrw27&repository=irv32&category=integration)
+
 The iRV32V2 is a head-unit RV stereo that exposes a proprietary BLE GATT
 control protocol behind a fake `Battery Service` (UUID `0x180F`). This
 integration sends ATKEY commands over GATT to control source, zone,
@@ -25,6 +27,16 @@ proxy.
 ## Installation
 
 ### HACS (recommended)
+
+Click the badge near the top of this README:
+
+[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=mcrw27&repository=irv32&category=integration)
+
+This opens your Home Assistant instance with the **Custom repositories**
+dialog pre-filled. Confirm the dialog, install the **iRV32 Stereo**
+integration from the result, then restart Home Assistant.
+
+Alternative manual steps:
 
 1. In HACS, go to **Integrations**, click the three-dots menu, then
    **Custom repositories**.
